@@ -24,10 +24,8 @@ def end_game(card_total)
 end
 
 def initial_round
-  deal_card
-  card_one = deal_card
-  deal_card
-  card_two = deal_card
+  card_one = deal_card()
+  card_two = deal_card()
   card_total = card_one + card_two
   display_card_total(card_total)
 end
@@ -35,17 +33,16 @@ end
 def hit?(card_total)
   prompt_user
   user_input = get_user_input
-  if user_input !== "s" || "h"
-    invalid_command
-    hit?
-  elsif user_input == "h"
-    deal_card
-
-    card_total += deal_card
-      #display_card_total(card_total)
-      #return card_total
-  elsif user_input == "s"
-    return card_total
+  case user_input
+    when "s"
+      return card_total
+    when "h"
+      card_total += deal_card
+      return card_total
+    else
+      invalid_command
+      prompt_user
+      return card_total
   end
 end
 
@@ -58,12 +55,6 @@ end
 #####################################################
 
 def runner
-  welcome
-  initial_round
-  hit?(card_total)
-  if hit? > 21
-    end_game
-  else
-    hit?(card_total)
-  end
+
+
 end
